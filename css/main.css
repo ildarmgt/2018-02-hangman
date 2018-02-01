@@ -1,0 +1,14 @@
+* {
+  border: 1px red solid; }
+
+@font-face {
+  font-family: normal;
+  src: url("fonts/Ubuntu-Light.ttf"); }
+main {
+  height: 90vh;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin: 0 auto; }
+
+/*# sourceMappingURL=main.css.map */
