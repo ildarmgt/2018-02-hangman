@@ -1,0 +1,27 @@
+{
+  "name": "my-cool-package",
+  "devDependencies": {
+    "semistandard": "*"
+  },
+  "semistandard": {
+   "env": [
+     "mocha"
+   ],
+   "ignore": [
+     "/lib"
+   ],
+   "globals": [
+     "main__input",
+     "wordBank",
+     "hintBank",
+     "main",
+     "main__title",
+     "main__word",
+     "main__drawingArea",
+     "sjcl",
+     "letterBank",
+     "timeStamp",
+     "returnAllIndexesOfMatch"
+   ]
+  }
+}

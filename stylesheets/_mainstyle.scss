@@ -1,7 +1,66 @@
-main {
-  height: 90vh;
+.main__title {
+  height: 5vh;
+}
+
+.main {
+  height: 95vh;
   width: 100%;
-  display: block;
+  display: inline-block;
   position: relative;
   margin: 0 auto;
+  text-align: center;
+  min-width: 320px;
+}
+
+.main__input {
+  // width: 50vw;
+  // height: auto;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  margin: 0 auto;
+  max-height: 45vh;
+}
+
+.main__input__btnLetter, .main__input__btnLetter_used {
+  width: 5vmax;
+  height: 5vmax;
+  display: inline-block;
+  position: relative;
+  margin: 0.5vmax;
+}
+
+.main__input__btnLetter_used {
+  background-color: gray;
+}
+
+.main__drawingArea {
+  width: 70vw;
+  height: 40vh;
+  display: inline-block;
+}
+
+.main__word {
+  overflow-x: auto;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.main__word_hidden, .main__word_space, .main__word_revealed {
+  width: 5vmax;
+  height: 5vmax;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  background-color: darkblue;
+  margin: 0.5vmax;
+}
+
+.main__word_revealed {
+  background-color: white;
+  color: black;
+}
+
+.main__word_space {
+  background-color: red;
 }
