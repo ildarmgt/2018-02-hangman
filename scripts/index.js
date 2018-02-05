@@ -10,7 +10,8 @@ class Game {
     this.initialAlphabetBank = inLetterBank.join().toUpperCase().split(','); // array[string]
 
     // reset the game with initial parameters (reusable!)
-    this.gameReset(this.initialWordBank, this.initialHintBank, this.initialAlphabetBank);
+    // slice passes by value (shallow)
+    this.gameReset(this.initialWordBank.slice(0), this.initialHintBank.slice(0), this.initialAlphabetBank.slice(0));
 
     // draw the view and sit and wait for clicks
     this.refreshUI(); // no return
@@ -19,15 +20,15 @@ class Game {
     // stand by mode
   }
 
-  gameReset (inWordBank, inHintBank, inLetterBank, inLives = 6, inPoints = 0) {
+  gameReset (inWordBank2, inHintBank2, inLetterBank2, inLives = 6, inPoints = 0) {
     this.livesLeft = inLives;
     this.points = inPoints;
 
-    this.wordBank = inWordBank.join().toUpperCase().split(','); // array[string]
+    this.wordBank = inWordBank2.join().toUpperCase().split(','); // array[string]
     // hints to use
-    this.hintBank = inHintBank; // array[string]
+    this.hintBank = inHintBank2; // array[string]
     // alphabet to use
-    this.alphabet = inLetterBank.join().toUpperCase().split(','); // array[string]
+    this.alphabet = inLetterBank2.join().toUpperCase().split(','); // array[string]
 
     this.currentIndex = null; // random word's index in wordBank // integer
     this.word = []; // random word itself // array[string]
@@ -180,7 +181,7 @@ class Game {
       self.hintBank.splice(self.currentIndex, 1);
 
       // reset game with new parameters
-      self.gameReset(self.wordBank, self.initialHintBank, self.alphabet, undefined, self.points);
+      self.gameReset(self.wordBank, self.hintBank, self.alphabet, undefined, self.points);
       // draw the view and sit and wait for clicks
       self.refreshUI(); // no return
 
