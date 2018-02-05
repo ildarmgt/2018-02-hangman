@@ -45,13 +45,15 @@ class Game {
 
   selectActiveWord () {
     // selection of word goes here
+    console.log('########what word bank Im using #######');
+    console.log(this.wordBank);
     this.currentIndex = this.getRnd(this.wordBank.length); // random word's index
     this.word = this.wordBank[this.currentIndex].split(''); // random word itself
     this.hint = this.hintBank[this.currentIndex]; // the hint for rnd word
     this.revealedLetterInWord = Array(this.word.length).fill(false); // reset status
     this.usedLetterInAbcs = Array(this.alphabet.length).fill(false); // reset status
 
-    console.log(timeStamp() + ': rnd = ' + this.currentIndex);
+    console.log(timeStamp() + ': this.currentIndex = ' + this.currentIndex);
     console.log(timeStamp() + ': word is ' + this.word);
     console.log(timeStamp() + ': hint is ' + this.hint);
   }
@@ -188,6 +190,7 @@ class Game {
       console.log(timeStamp() + ': Game reset, new game on!');
 
       main__results.style.display = 'none'; // make game over screen go away
+      main__results__btnOk.removeEventListener('click', btnOkOnclick);
     };
     main__results__btnOk.addEventListener('click', btnOkOnclick);
   }
@@ -211,6 +214,7 @@ class Game {
       console.log(timeStamp() + ': Game reset, new game on!');
 
       main__results.style.display = 'none'; // make game over screen go away
+      main__results__btnOk.removeEventListener('click', btnOkOnclick);
     };
     main__results__btnOk.addEventListener('click', btnOkOnclick);
   }
