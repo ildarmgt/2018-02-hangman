@@ -18,10 +18,18 @@
      "main__title",
      "main__word",
      "main__drawingArea",
+     "main__hint",
+     "main__results__stats",
+     "main__results",
+     "main__results__btnOk",
+     "main__drawingArea_2d",
+     "main__score",
+     "main__lives",
      "sjcl",
      "letterBank",
      "timeStamp",
-     "returnAllIndexesOfMatch"
+     "returnAllIndexesOfMatch",
+     "MAX_LENGTH"
    ]
   }
 }

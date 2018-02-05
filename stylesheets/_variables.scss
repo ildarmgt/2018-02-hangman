@@ -1,0 +1,27 @@
+// word display section
+
+$main__word__tile_bgcolor: rgb(105, 187, 126);
+
+$main__word__tile_revealed_bgcolor: white;
+$main__word__tile_revealed_fontcolor: black;
+
+$main__word__tile_hidden_bgcolor: rgb(58, 145, 208);
+
+// input keyboard section
+
+$main__input__btnLetter_bgcolor: rgb(58, 145, 208);
+$main__input__btnLetter_fontcolor: white;
+
+$main__input__btnLetter_used_bgcolor: gray;
+$main__input__btnLetter_used_fontcolor: lightgray;
+
+// results section
+
+$main__results__stats_bgcolor: $main__word__tile_bgcolor;
+$main__results__stats_fontcolor: white;
+
+$main__results__btnOk_bgcolor: white;
+$main__results__btnOk_fontcolor: $main__word__tile_bgcolor;
+
+$main__results__stats_loss_bgcolor: rgb(246, 90, 90);
+$main__results__btnOk_loss_fontcolor: $main__results__stats_loss_bgcolor;

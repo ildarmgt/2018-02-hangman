@@ -1,0 +1,6 @@
+@mixin sizeVerticals($inSize) {
+  font-family: normal;
+  font-size: $inSize;
+  line-height: $inSize;
+  vertical-align: middle;
+}

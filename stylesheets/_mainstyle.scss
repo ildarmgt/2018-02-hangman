@@ -1,66 +1,123 @@
 .main__title {
-  height: 5vh;
+  @include sizeVerticals(5vh);
+  height: 6vh;
+  margin: 0.2vh;
+  margin-bottom: 1vh;
 }
 
 .main {
   height: 95vh;
-  width: 100%;
-  display: inline-block;
+  width: 95vw;
+  display: block;
   position: relative;
   margin: 0 auto;
   text-align: center;
-  min-width: 320px;
+  min-width: 50vh;
+  // margin: 0;
+  // padding: 0;
+  line-height: 0;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  user-select: none;
 }
 
 .main__input {
   // width: 50vw;
-  // height: auto;
+  height: 25vh;
   text-align: center;
-  display: inline-block;
+  display: block;
   position: relative;
-  margin: 0 auto;
-  max-height: 45vh;
+  margin: 0.2vh;
 }
 
-.main__input__btnLetter, .main__input__btnLetter_used {
-  width: 5vmax;
-  height: 5vmax;
+.main__input__btnLetter {
+  @include sizeVerticals(4vh);
+  height: 4vh;
+  width: 4vh;
   display: inline-block;
   position: relative;
-  margin: 0.5vmax;
+  margin: 0.2vh;
+  margin-bottom: 1vh;
+  padding: 0.2vh;
+  border-radius: 0.4vh;
+  cursor: pointer;
+
+  background-color: $main__input__btnLetter_bgcolor;
+  color: $main__input__btnLetter_fontcolor;
+
+}
+
+.main__input__btnLetter_ready:active {
+  transform: translateY(2px);
 }
 
 .main__input__btnLetter_used {
-  background-color: gray;
+  background-color: $main__input__btnLetter_used_bgcolor;
+  color: $main__input__btnLetter_used_fontcolor;
+}
+
+.main__hint {
+  @include sizeVerticals(2.5vh);
+  height: 3vh;
+  margin: 0.5vh 1vh;
+  position: relative;
+  display: inline-block;
+}
+
+.main__score {
+  @include sizeVerticals(2.5vh);
+  position: relative;
+  display: inline-block;
+  margin: 0.5vh 1vh;
+}
+
+.main__lives {
+  @include sizeVerticals(2.5vh);
+  position: relative;
+  display: inline-block;
+  margin: 0.5vh 1vh;
 }
 
 .main__drawingArea {
-  width: 70vw;
+  // width: auto;
   height: 40vh;
-  display: inline-block;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  // margin: 0.2vh;
+  // overflow: hidden;
+  line-height: 4vh;
 }
 
 .main__word {
   overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
   word-wrap: normal;
+  font-family: normal;
+  margin: 0.2vh;
 }
 
-.main__word_hidden, .main__word_space, .main__word_revealed {
-  width: 5vmax;
-  height: 5vmax;
+.main__word__tile {
+  @include sizeVerticals(4vh);
+  height: 4vh;
+  width: 3.4vh;
+
   display: inline-block;
   position: relative;
-  vertical-align: middle;
-  background-color: darkblue;
-  margin: 0.5vmax;
+  margin: 0.2vh;
+  // padding: 0.2vh;
+
+  background-color: $main__word__tile_bgcolor;
 }
 
-.main__word_revealed {
-  background-color: white;
-  color: black;
+.main__word__tile_revealed {
+  background-color: $main__word__tile_revealed_bgcolor;
+  color: $main__word__tile_revealed_fontcolor;
 }
 
-.main__word_space {
-  background-color: red;
+.main__word__tile_hidden {
+  background-color: $main__word__tile_hidden_bgcolor;
 }

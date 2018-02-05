@@ -14,7 +14,7 @@ function returnAllIndexesOfMatch (searchInThisArray, searchForThisChar) {
 
   let temp = searchInThisArray.map((element, index) => {
     // for every ~letter in ~word
-    console.log(timeStamp() + ': comparing ' + element + ' and ' + searchForThisChar);
+    // console.log(timeStamp() + ': comparing ' + element + ' and ' + searchForThisChar);
     if (element === searchForThisChar) {
       // replace each value with its index if match
       return index;
