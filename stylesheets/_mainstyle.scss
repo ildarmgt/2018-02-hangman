@@ -121,3 +121,25 @@
 .main__word__tile_hidden {
   background-color: $main__word__tile_hidden_bgcolor;
 }
+
+.main__word__tile_victory {
+  background-color: white;
+  color: $main__word__tile_bgcolor;
+  font-weight: bold;
+}
+
+.main__word__tile_blank {
+  background-color: white;
+  color: white;
+}
+
+.main__wheel {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 80vmin;
+  width: 80vmin;
+  border-radius: 80vmin;
+  background-color: $main__word__tile_hidden_bgcolor;
+}

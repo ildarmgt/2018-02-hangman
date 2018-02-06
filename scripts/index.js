@@ -37,6 +37,9 @@ class Game {
     this.lastMatches = []; // indecies of matches for last guess in Word // array[int]
     this.lastGuess = ''; // last guess for easy access // String
 
+    this.roundOverBad = false;
+    this.roundOverGood = false;
+
     this.usedLetterInAbcs = []; // alphabet letters used // array[bool]
 
     // select an active word
@@ -45,8 +48,8 @@ class Game {
 
   selectActiveWord () {
     // selection of word goes here
-    console.log('########what word bank Im using #######');
-    console.log(this.wordBank);
+    // console.log('########what word bank Im using #######');
+    // console.log(this.wordBank);
     this.currentIndex = this.getRnd(this.wordBank.length); // random word's index
     this.word = this.wordBank[this.currentIndex].split(''); // random word itself
     this.hint = this.hintBank[this.currentIndex]; // the hint for rnd word
@@ -140,83 +143,102 @@ class Game {
 
   endGame () {
     // game over result
-    main__results.style.display = 'block'; // show it
-    main__results__stats.classList.add('main__results__stats_loss');
-    main__results__btnOk.classList.add('main__results__btnOk_loss');
-    main__results__stats.innerHTML = '<br><b>Game Over</b><br><br>' +
-      'Points: ' + this.points + '<br><br>' +
-      'Restart the game when ready';
-    main__results__btnOk.innerHTML = 'Restart';
+    console.log(timeStamp() + ': Game ends.');
+    main__input.style.display = 'none'; // keyboard disapears
+    this.roundOverBad = true; // drawHangman acts differently, resets after
 
-    // reset events & addd new one
-    var self = this;
-    var btnOkOnclick = function () {
-      // go back to initial settings
-      self.gameReset(self.initialWordBank, self.initialHintBank, self.initialAlphabetBank);
-      // draw the view and sit and wait for clicks
-      self.refreshUI(); // no return
+    // delayed message
+    setTimeout(() => {
+      main__results.style.display = 'block'; // show it
+      main__results__stats.classList.add('main__results__stats_loss');
+      main__results__btnOk.classList.add('main__results__btnOk_loss');
+      main__results__stats.innerHTML = '<br><b>Game Over</b><br><br>' +
+        'Points: ' + this.points + '<br><br>' +
+        'Restart the game when ready';
+      main__results__btnOk.innerHTML = 'Restart';
 
-      console.log(timeStamp() + ': Game reset, new game on!');
+      // reset events & addd new one
+      var self = this;
+      var btnOkOnclick = function () {
+        // go back to initial settings
+        self.gameReset(self.initialWordBank, self.initialHintBank, self.initialAlphabetBank);
+        // draw the view and sit and wait for clicks
+        self.refreshUI(); // no return
 
-      main__results.style.display = 'none'; // make game over screen go away
-      main__results__stats.classList.remove('main__results__stats_loss');
-      main__results__btnOk.classList.remove('main__results__btnOk_loss');
-      main__results__btnOk.removeEventListener('click', btnOkOnclick);
-    };
-    main__results__btnOk.addEventListener('click', btnOkOnclick);
+        console.log(timeStamp() + ': Game ended, new game on!');
+        // clean up
+        main__results.style.display = 'none'; // make game over screen go away
+        main__results__stats.classList.remove('main__results__stats_loss');
+        main__results__btnOk.classList.remove('main__results__btnOk_loss');
+        main__results__btnOk.removeEventListener('click', btnOkOnclick);
+        main__input.style.display = 'block';
+      };
+      main__results__btnOk.addEventListener('click', btnOkOnclick);
+    }, 3000);
   }
 
   continueGame () {
-    main__results.style.display = 'block'; // show it
+    console.log(timeStamp() + ': Game continues.');
+    main__input.style.display = 'none'; // keyboard disapears
+    this.roundOverGood = true; // changes tile drawings temporarily until reset
 
-    main__results__stats.innerHTML = '<br><b>Round beat!</b><br><br>' +
-      'Points: ' + this.points + '<br><br>' +
-      'Continue the game when ready';
-    main__results__btnOk.innerHTML = 'Continue';
+    setTimeout(() => {
+      main__results.style.display = 'block'; // show it
 
-    // reset events & addd new one
-    var self = this;
-    var btnOkOnclick = function () {
-      // remove the current word from bank and reset
-      // remove current word & related
-      self.wordBank.splice(self.currentIndex, 1);
-      self.hintBank.splice(self.currentIndex, 1);
+      main__results__stats.innerHTML = '<br><b>Round beat!</b><br><br>' +
+        'Points: ' + this.points + '<br><br>' +
+        'Continue the game when ready';
+      main__results__btnOk.innerHTML = 'Continue';
 
-      // reset game with new parameters
-      self.gameReset(self.wordBank, self.hintBank, self.alphabet, undefined, self.points);
-      // draw the view and sit and wait for clicks
-      self.refreshUI(); // no return
+      // reset events & add new one
+      var self = this;
+      var btnOkOnclick = function () {
+        // remove the current word from bank and reset
+        // remove current word & related
+        self.wordBank.splice(self.currentIndex, 1);
+        self.hintBank.splice(self.currentIndex, 1);
 
-      console.log(timeStamp() + ': Game reset, new game on!');
+        // reset game with new parameters
+        self.gameReset(self.wordBank, self.hintBank, self.alphabet, undefined, self.points);
+        // draw the view and sit and wait for clicks
+        self.refreshUI(); // no return
 
-      main__results.style.display = 'none'; // make game over screen go away
-      main__results__btnOk.removeEventListener('click', btnOkOnclick);
-    };
-    main__results__btnOk.addEventListener('click', btnOkOnclick);
+        console.log(timeStamp() + ': Game reset, new game on!');
+
+        main__results.style.display = 'none'; // make game over screen go away
+        main__results__btnOk.removeEventListener('click', btnOkOnclick);
+        main__input.style.display = 'block';
+      };
+      main__results__btnOk.addEventListener('click', btnOkOnclick);
+    }, 3000);
   }
 
   beatGame () {
     main__results.style.display = 'block'; // show it
+    main__input.style.display = 'none';
 
-    main__results__stats.innerHTML = '<br><b>Game beat!</b><br><br>' +
-      'Points: ' + this.points + '<br><br>' +
-      'Done! Reset game to try again.';
-    main__results__btnOk.innerHTML = 'Reset';
+    setTimeout(() => {
+      main__results__stats.innerHTML = '<br><b>Game beat!</b><br><br>' +
+        'Points: ' + this.points + '<br><br>' +
+        'Done! Reset game to try again.';
+      main__results__btnOk.innerHTML = 'Reset';
 
-    // reset events & addd new one
-    var self = this;
-    var btnOkOnclick = function () {
-      // reset game with new parameters
-      self.gameReset(self.initialWordBank, self.initialHintBank, self.initialAlphabetBank);
-      // draw the view and sit and wait for clicks
-      self.refreshUI(); // no return
+      // reset events & addd new one
+      var self = this;
+      var btnOkOnclick = function () {
+        // reset game with new parameters
+        self.gameReset(self.initialWordBank, self.initialHintBank, self.initialAlphabetBank);
+        // draw the view and sit and wait for clicks
+        self.refreshUI(); // no return
 
-      console.log(timeStamp() + ': Game reset, new game on!');
+        console.log(timeStamp() + ': Game reset, new game on!');
 
-      main__results.style.display = 'none'; // make game over screen go away
-      main__results__btnOk.removeEventListener('click', btnOkOnclick);
-    };
-    main__results__btnOk.addEventListener('click', btnOkOnclick);
+        main__results.style.display = 'none'; // make game over screen go away
+        main__results__btnOk.removeEventListener('click', btnOkOnclick);
+        main__input.style.display = 'block';
+      };
+      main__results__btnOk.addEventListener('click', btnOkOnclick);
+    }, 2000);
   }
 
   correctAnswer (inMatches, inPoints = 1) {
@@ -260,15 +282,27 @@ class Game {
         divWordLetter.innerHTML = elementInWord;
 
         // console.log(timeStamp() + ': true <- isRevealedIndexInWord(' + indexInWord);
-        divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_revealed');
+        if (this.roundOverGood) {
+          divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_victory');
+        } else {
+          divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_revealed');
+        }
       } else if (this.isSpaceAtThisIndexInWord(indexInWord)) {
         // is blank space
         // console.log(timeStamp() + ': true <- isSpaceAtThisIndexInWord(' + indexInWord);
-        divWordLetter.setAttribute('class', 'main__word__tile');
+        if (!this.roundOverGood) {
+          divWordLetter.setAttribute('class', 'main__word__tile');
+        } else {
+          divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_blank');
+        }
       } else {
         // hidden letter
         // console.log(timeStamp() + ': Still hidden: ' + elementInWord);
-        divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_hidden');
+        if (!this.roundOverGood) {
+          divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_hidden');
+        } else {
+          divWordLetter.setAttribute('class', 'main__word__tile main__word__tile_blank');
+        }
       }
     });
   }
@@ -282,7 +316,22 @@ class Game {
     main__drawingArea_2d.beginPath(); // start design
     main__drawingArea_2d.lineWidth = 2;
     main__drawingArea_2d.lineCap = 'round';
-    main__drawingArea_2d.strokeStyle = '#3A91D0';
+
+    if (this.roundOverBad) {
+      main__drawingArea_2d.strokeStyle = '#EC4141';
+      // draw X.X eyes and move pet to where arc starts drawing
+      main__drawingArea_2d.moveTo(hangmanX - 12, hangmanY - 10);
+      main__drawingArea_2d.lineTo(hangmanX - 2, hangmanY - 1);
+      main__drawingArea_2d.moveTo(hangmanX - 12, hangmanY - 1);
+      main__drawingArea_2d.lineTo(hangmanX - 2, hangmanY - 10);
+      main__drawingArea_2d.moveTo(hangmanX + 12, hangmanY - 10);
+      main__drawingArea_2d.lineTo(hangmanX + 2, hangmanY - 1);
+      main__drawingArea_2d.moveTo(hangmanX + 12, hangmanY - 1);
+      main__drawingArea_2d.lineTo(hangmanX + 2, hangmanY - 10);
+      main__drawingArea_2d.moveTo(hangmanX + 20, hangmanY);
+    } else {
+      main__drawingArea_2d.strokeStyle = '#3A91D0';
+    }
 
     if (this.livesLeft < 6) {
       // draw head
@@ -368,7 +417,11 @@ class Game {
   drawTheWideBlock (inWidth) {
     for (let i = 0; i < inWidth; i++) {
       var divBoard = document.createElement('div');
-      divBoard.setAttribute('class', 'main__word__tile main__word__tile_board');
+      if (!this.roundOverGood) {
+        divBoard.setAttribute('class', 'main__word__tile main__word__tile_board');
+      } else {
+        divBoard.setAttribute('class', 'main__word__tile main__word__tile_blank');
+      }
       main__word.appendChild(divBoard);
     }
   }
@@ -404,3 +457,10 @@ class Game {
 
 var game = new Game(wordBank, hintBank, letterBank);
 console.log(game);
+
+// window.addEventListener('load', () => {
+// test wheel spinning here
+
+// https://stackoverflow.com/questions/43221996/trying-to-create-a-rotating-spinner-wheel-in-java
+
+// });

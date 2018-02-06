@@ -124,6 +124,25 @@
 .main__word__tile_hidden {
   background-color: #3a91d0; }
 
+.main__word__tile_victory {
+  background-color: white;
+  color: #69bb7e;
+  font-weight: bold; }
+
+.main__word__tile_blank {
+  background-color: white;
+  color: white; }
+
+.main__wheel {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 80vmin;
+  width: 80vmin;
+  border-radius: 80vmin;
+  background-color: #3a91d0; }
+
 .main__results {
   display: none;
   position: fixed;
